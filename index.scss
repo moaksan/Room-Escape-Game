@@ -1,0 +1,23 @@
+.app {
+  .header {
+    height: 100px;
+    .title {
+      font-size: 50px;
+    }
+  }
+  .game-container {
+    .map-container {
+      height: 800px;
+    }
+    .ic-container {
+      height: 100px;
+      .items {
+      }
+      .command {
+      }
+    }
+    .game-message {
+      // height: 100px;
+    }
+  }
+}

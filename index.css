@@ -1,0 +1,12 @@
+.app .header {
+  height: 100px;
+}
+.app .header .title {
+  font-size: 50px;
+}
+.app .game-container .map-container {
+  height: 800px;
+}
+.app .game-container .ic-container {
+  height: 100px;
+}/*# sourceMappingURL=index.css.map */
