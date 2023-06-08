@@ -1,15 +1,12 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+.app .header {
+  height: 100px;
 }
-.header .title {
+.app .header .title {
   font-size: 50px;
-  font-weight: bold;
-  margin: 0 0 0 20px;
 }
-.header .items {
-  font-size: 30px;
-  font-weight: 600;
-  margin: 0 100px 0 0;
-}/*# sourceMappingURL=index.css.map */
+.app .game-container .map-container {
+  height: 800px;
+}
+.app .game-container .ic-container {
+  height: 100px;
+} /*# sourceMappingURL=index.css.map */

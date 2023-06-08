@@ -1,27 +1,43 @@
-document.addEventListener("DOMContentLoaded", function () {
-  // Wait till the browser is ready to render the game (avoids glitches)
-  // window.requestAnimationFrame(function () {
-  var manager = new GameManager(4, KeyboardInputManager, HTMLActuator);
-  // });
+document.addEventListener("DOMContentLoaded", () => {
+  const newGame = new GameManager(map, InputManager, HTMLActuator);
 });
 
-function GameManager(map, InputManager, Actuator) {
-  this.map = map;
+function GameManager(map, InputManager, HTMLActuator) {
+  this.map = map();
   this.inputManager = new InputManager();
-  this.actuator = new Actuator();
-  console.log("render");
-  this.count = 1;
-  // this.inputManager.on("move", this.move.bind(this));
-  // this.inputManager.on("restart", this.restart.bind(this));
-
-  // this.setup();
+  this.actuator = new HTMLActuator();
+  console.log("new game");
+  console.log(this);
 }
 
-function KeyboardInputManager() {
-  document.addEventListener("click", function () {
-    console.log("click");
-  });
-  this.count += 1;
+function map() {
+  const map = {
+    size: [8, 9],
+    rooms: [
+      [1, 5],
+      [1, 6],
+      [1, 7],
+      [2, 4],
+      [2, 5],
+      [3, 1],
+      [3, 2],
+      [3, 3],
+      [3, 4],
+      [4, 2],
+      [4, 4],
+      [5, 2],
+      [5, 4],
+      [5, 5],
+      [6, 5],
+    ],
+    doors: [],
+    items: [],
+    startPos: [],
+  };
+
+  return map;
 }
+
+function InputManager() {}
 
 function HTMLActuator() {}
