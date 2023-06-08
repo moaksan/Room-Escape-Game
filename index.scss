@@ -1,0 +1,15 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  .title {
+    font-size: 50px;
+    font-weight: bold;
+    margin: 0 0 0 20px;
+  }
+  .items {
+    font-size: 30px;
+    font-weight: 600;
+    margin: 0 100px 0 0;
+  }
+}
