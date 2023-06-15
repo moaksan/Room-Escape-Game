@@ -36,8 +36,12 @@ body {
 .app .game-container .map-container-container .map-container .cell .room {
   width: 100%;
   height: 100%;
-  border: solid 5px black;
+  outline: 5px solid black;
   background-color: aqua;
+}
+.app .game-container .map-container-container .map-container .cell .room::after {
+  content: "asdf";
+  background-color: blue;
 }
 .app .game-container .ic-container {
   height: 100px;

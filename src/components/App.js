@@ -6,4 +6,8 @@ export function App() {
   document.addEventListener("DOMContentLoaded", () => {
     const newGame = new GameManager(InputManager, HTMLActuator);
   });
+  window.addEventListener("load", () => {
+    console.log("load");
+    console.log(window);
+  });
 }

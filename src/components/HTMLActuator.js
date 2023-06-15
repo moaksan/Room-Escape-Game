@@ -23,7 +23,7 @@ HTMLActuator.prototype.setGrid = function (size) {
   for (let i = 0; i < size[0]; i++) {
     for (let j = 0; j < size[1]; j++) {
       const element = document.createElement("div");
-      element.className = `cell ${i}_${j}`;
+      element.className = `cell _${i}-${j}`;
       this.mapContainer.appendChild(element);
     }
   }
@@ -31,8 +31,8 @@ HTMLActuator.prototype.setGrid = function (size) {
 HTMLActuator.prototype.updateRoom = function (roomData) {
   for (let [x, y] of roomData) {
     const element = document.createElement("div");
-    element.className = `room ${x}_${y}`;
-    const cell = this.mapContainer.getElementsByClassName(`cell ${x}_${y}`)[0];
+    element.className = `room _${x}-${y}`;
+    const cell = this.mapContainer.getElementsByClassName(`cell _${x}-${y}`)[0];
     cell.appendChild(element);
   }
 };
@@ -40,8 +40,8 @@ HTMLActuator.prototype.updateRoom = function (roomData) {
 HTMLActuator.prototype.updateDoor = function (doorData) {
   for (let [x, y, direction] of doorData.유리) {
     const element = document.createElement("div");
-    element.className = `door ${x}_${y}_${direction}`;
-    const room = this.mapContainer.getElementsByClassName(`room ${x}_${y}`)[0];
+    element.className = `door ${x}-${y}-${direction}`;
+    const room = this.mapContainer.getElementsByClassName(`room _${x}-${y}`)[0];
     room.appendChild(element);
   }
 };
