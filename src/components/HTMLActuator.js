@@ -33,22 +33,46 @@ HTMLActuator.prototype.updateRoom = function (roomData) {
     const element = document.createElement("div");
     element.className = `room _${x}-${y}`;
     const cell = this.mapContainer.getElementsByClassName(`cell _${x}-${y}`)[0];
+    cell.getElementsByClassName("room")[0].remove();
     cell.appendChild(element);
   }
 };
 
 HTMLActuator.prototype.updateDoor = function (doorData) {
-  for (let [x, y, direction] of doorData.유리) {
-    const element = document.createElement("div");
-    element.className = `door ${x}-${y}-${direction}`;
-    const room = this.mapContainer.getElementsByClassName(`room _${x}-${y}`)[0];
-    room.appendChild(element);
+  for (let type in doorData) {
+    for (let [x, y, direction] of doorData[type]) {
+      const element = document.createElement("div");
+      element.className = `door ${x}-${y}-${direction}-${type}`;
+      const cell = this.mapContainer.getElementsByClassName(
+        `cell _${x}-${y}`
+      )[0];
+      const prevs = cell.getElementsByClassName("room");
+      for (let prev of prevs) {
+        prev.remove();
+      }
+      cell.appendChild(element);
+    }
   }
 };
 
-HTMLActuator.prototype.updateItem = function () {};
+HTMLActuator.prototype.updateItem = function (itemData) {
+  for (let type in itemData) {
+    for (let [x, y] of itemData[type]) {
+      const element = document.createElement("div");
+      element.className = `item ${x}-${y}-${type}`;
+      const cell = this.mapContainer.getElementsByClassName(
+        `cell _${x}-${y}`
+      )[0];
+      const prevs = cell.getElementsByClassName("item");
+      for (let prev of prevs) {
+        prev.remove();
+      }
+      cell.appendChild(element);
+    }
+  }
+};
 
-HTMLActuator.prototype.updateCharacter = function () {};
+HTMLActuator.prototype.updateCharacter = function (characterData) {};
 
 HTMLActuator.prototype.updateItemPossessed = function () {};
 
