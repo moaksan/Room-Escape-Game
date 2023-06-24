@@ -32,6 +32,11 @@ body {
 .app .game-container .map-container-container .map-container {
   display: grid;
   justify-content: space-around;
+  gap: 5px;
+}
+.app .game-container .map-container-container .map-container .cell {
+  width: 100%;
+  height: 100%;
 }
 .app .game-container .map-container-container .map-container .cell .room {
   width: 100%;
@@ -39,15 +44,52 @@ body {
   outline: 5px solid black;
   background-color: aqua;
 }
-.app .game-container .map-container-container .map-container .cell .room::after {
-  content: "asdf";
+.app .game-container .map-container-container .map-container .cell .door {
+  position: fixed;
+  width: 20px;
+  height: 20px;
   background-color: blue;
+}
+.app .game-container .map-container-container .map-container .cell .item {
+  width: 20px;
+  height: 20px;
+  background-color: green;
+}
+.app .game-container .map-container-container .map-container .cell .character {
+  width: 20px;
+  height: 20px;
+  background-color: red;
 }
 .app .game-container .ic-container {
   height: 100px;
-  background-color: blue;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.app .game-container .ic-container .item-possessed {
+  position: absolute;
+  width: 200px;
+  display: flex;
+  align-items: center;
+  left: 0;
+  margin: 20px;
+  font-size: 20px;
+}
+.app .game-container .ic-container .command-container {
+  width: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: solid 2px black;
+}
+.app .game-container .ic-container .command-container .command {
+  width: 300px;
+  height: 30px;
+  font-size: 20px;
 }
 .app .game-container .game-message {
   height: 100px;
-  background-color: green;
+  display: flex;
+  justify-content: center;
+  font-size: 25px;
 }/*# sourceMappingURL=index.css.map */

@@ -25,11 +25,13 @@ export function GameManager(InputManager, HTMLActuator) {
   this.character = character;
   this.inputManager = new InputManager();
   this.actuator = new HTMLActuator();
-
+  
   this.setUp();
 }
 
 GameManager.prototype.setUp = function () {
   this.actuator.updateMap(this.map, this.character);
-  this.actuator.updateItemPossessed();
+  this.actuator.updateItemPossessed(this.character);
+  this.actuator.updateCommand("");
+  this.actuator.updateMessage("");
 };
