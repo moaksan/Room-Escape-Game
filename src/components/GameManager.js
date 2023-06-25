@@ -25,7 +25,9 @@ export function GameManager(InputManager, HTMLActuator) {
   this.character = character;
   this.inputManager = new InputManager();
   this.actuator = new HTMLActuator();
-  
+
+  this.inputManager.on("move", this.move.bind(this));
+
   this.setUp();
 }
 
@@ -34,4 +36,9 @@ GameManager.prototype.setUp = function () {
   this.actuator.updateItemPossessed(this.character);
   this.actuator.updateCommand("");
   this.actuator.updateMessage("");
+};
+
+GameManager.prototype.move = function (direction) {
+  console.log(direction);
+  
 };

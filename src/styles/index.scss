@@ -28,34 +28,54 @@ body {
       justify-content: center;
       align-items: center;
       .map-container {
+        position: relative;
         display: grid;
         justify-content: space-around;
-        gap: 5px;
         .cell {
+          position: relative;
           width: 100%;
           height: 100%;
           .room {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background-color: white;
+            z-index: 4;
+            // background-color: aqua;
+          }
+          .room-wall {
+            position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
             outline: 5px solid black;
-            background-color: aqua;
+            z-index: 3;
           }
-
           .door {
-            position: fixed;
-            width: 20px;
-            height: 20px;
+            position: absolute;
+            top: 0px;
+            left: -5px;
+            width: 5px;
+            height: 70px;
             background-color: blue;
+            z-index: 5;
           }
           .item {
+            position: absolute;
             width: 20px;
             height: 20px;
+            top: 20px;
+            left: 20px;
             background-color: green;
+            z-index: 5;
           }
           .character {
+            position: absolute;
             width: 20px;
             height: 20px;
             background-color: red;
+            z-index: 6;
           }
         }
       }

@@ -1,3 +1,5 @@
+const cellSize = 70;
+const gapSize = 5;
 export function HTMLActuator() {
   this.mapContainer = document.getElementsByClassName("map-container")[0];
   this.itemContainer = document.getElementsByClassName("item-possessed")[0];
@@ -38,13 +40,17 @@ HTMLActuator.prototype.updateRoom = function (mapData) {
         `cell _${i}-${j}`
       )[0];
       cell.getElementsByClassName("room")[0]?.remove();
+      cell.getElementsByClassName("room-wall")[0]?.remove();
     }
   }
   for (let [x, y] of roomData) {
+    const cell = this.mapContainer.getElementsByClassName(`cell _${x}-${y}`)[0];
     const element = document.createElement("div");
     element.className = `room _${x}-${y}`;
-    const cell = this.mapContainer.getElementsByClassName(`cell _${x}-${y}`)[0];
+    const element2 = document.createElement("div");
+    element2.className = `room-wall _${x}-${y}`;
     cell.appendChild(element);
+    cell.appendChild(element2);
   }
 };
 
@@ -126,5 +132,3 @@ HTMLActuator.prototype.updateCommand = function (str) {
 HTMLActuator.prototype.updateMessage = function (str) {
   this.messageContainer.innerHTML = str;
 };
-
-const cellSize = 70;
