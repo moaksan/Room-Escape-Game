@@ -43,4 +43,6 @@ InputManager.prototype.listen = function () {
       }
     }
   });
+
+  window.addEventListener('')
 };

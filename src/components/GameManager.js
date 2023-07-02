@@ -27,6 +27,7 @@ export function GameManager(InputManager, HTMLActuator) {
   this.actuator = new HTMLActuator();
 
   this.inputManager.on("move", this.move.bind(this));
+  this.inputManager.on("")
 
   this.setUp();
 }
