@@ -1,18 +1,19 @@
 // prettier-ignore
 const map = {
   size: [8, 9],
-  rooms: [
-    [1, 5],[1, 6],[1, 7],[2, 4],[2, 5],[3, 1],[3, 2],[3, 3],[3, 4],[4, 2],[4, 4],[5, 2],[5, 4],[5, 5],[6, 5],
-  ],
+  rooms: {
+    '1,5':'서 북','1,6':'남 북','1,7':'남 북','2,4':'서 북','2,5':'동 남','3,1':'서 남 북','3,2':'북','3,3':'남 북','3,4':'동','4,2':'동 서','4,4':'동 서','5,2':'동 서 남','5,4':'서 남','5,5':'동 북','6,5':'동 서 남'
+  },
   doors: {
-    유리: [[3,3,'남']], // [x,y,direction]
-    나무: [[2,5,'동'], [5,5,'남']], // (x,y) room의 좌상귀가 문의 경첩
-    잠긴: [[1,8,'남']], // direction 의미 : 1=up, 2=left, 3=down, 4=right
-    깨진유리: []
+    '3,3':{type: '유리문', direction: '남'},
+    '2,5':{type: '나무문', direction: '서'},
+    '5,5':{type: '나무문', direction: '남'},
+    '1,7':{type: '잠긴문', direction: '남'},
+    // (x,y) room의 좌상귀가 문의 경첩
   },
   items: {
-    망치: [[3,1]],
-    열쇠: [[6,5]]
+    '3,1': ['망치'],
+    '6,5': ['열쇠']
   },
 };
 const character = {
@@ -35,47 +36,50 @@ export function Utils() {}
 Utils.prototype.canMove = function (curPos, nexPos, direction, mapData) {
   const rooms = mapData.rooms;
   const doors = mapData.doors;
-  if (rooms.includes(curPos) && rooms.includes(nexPos)) {    
-    doors.forEach(type => {
-      if(type=='깨진유리') return
-      doors[type].forEach(el=>{
-        const [x,y,d]= el
-        const tmp=[]
-        if(d=="동"){
-          tmp=[x,y,x-1,y]
-        }else if(d=="서"){
-          tmp=[x,y-1,x-1,y-1]
-        }else if(d=="남"){
-          tmp=[x,y,x,y-1]
-        }else if(d=="북"){
-          tmp=[x-1,y,x-1,y-1]
+  if (rooms.includes(curPos) && rooms.includes(nexPos)) {
+    doors.forEach((type) => {
+      if (type == "깨진유리") return;
+      doors[type].forEach((el) => {
+        const [x, y, d] = el;
+        const tmp = [];
+        if (d == "동") {
+          tmp = [x, y, x - 1, y];
+        } else if (d == "서") {
+          tmp = [x, y - 1, x - 1, y - 1];
+        } else if (d == "남") {
+          tmp = [x, y, x, y - 1];
+        } else if (d == "북") {
+          tmp = [x - 1, y, x - 1, y - 1];
         }
-        
-        if([...curPos, ...nexPos]==tmp || [...nexPos, ...curPos]==tmp){
-          return false
+
+        if ([...curPos, ...nexPos] == tmp || [...nexPos, ...curPos] == tmp) {
+          return false;
         }
-      })
+      });
     });
-    return true
-  } else if((!rooms.includes(curPos) && rooms.includes(nexPos)) || (rooms.includes(curPos) && !rooms.includes(nexPos))){
-    doors[type].forEach(el=>{
-      const [x,y,d]= el
-      const tmp=[]
-      if(d=="동"){
-        tmp=[x,y,x-1,y]
-      }else if(d=="서"){
-        tmp=[x,y-1,x-1,y-1]
-      }else if(d=="남"){
-        tmp=[x,y,x,y-1]
-      }else if(d=="북"){
-        tmp=[x-1,y,x-1,y-1]
+    return true;
+  } else if (
+    (!rooms.includes(curPos) && rooms.includes(nexPos)) ||
+    (rooms.includes(curPos) && !rooms.includes(nexPos))
+  ) {
+    doors[type].forEach((el) => {
+      const [x, y, d] = el;
+      const tmp = [];
+      if (d == "동") {
+        tmp = [x, y, x - 1, y];
+      } else if (d == "서") {
+        tmp = [x, y - 1, x - 1, y - 1];
+      } else if (d == "남") {
+        tmp = [x, y, x, y - 1];
+      } else if (d == "북") {
+        tmp = [x - 1, y, x - 1, y - 1];
       }
-      
-      if([...curPos, ...nexPos]==tmp || [...nexPos, ...curPos]==tmp){
-        return false
+
+      if ([...curPos, ...nexPos] == tmp || [...nexPos, ...curPos] == tmp) {
+        return false;
       }
-    })
-    return false
+    });
+    return false;
   } else if (!rooms.includes(curPos) && !rooms.includes(nexPos)) {
     return true;
   }
@@ -99,7 +103,9 @@ GameManager.prototype.setUp = function () {
 
 GameManager.prototype.move = function (direction) {
   const curPos = this.character.position;
-  let nexPos = [-1, -1];
+  const nexPos = [-1, -1];
+  const rooms = this.map.rooms;
+  const doors = this.map.doors;
 
   if (direction === "동") {
     nexPos = [curPos[0], curPos[1] + 1];
@@ -111,15 +117,16 @@ GameManager.prototype.move = function (direction) {
     nexPos = [curPos[0] - 1, curPos[1]];
   } else {
     console.log("direction error");
+    return;
   }
 
-  if (nexPos !== [-1, -1]) {
-    if (this.utils.canMove(curPos, nexPos, direction, this.map)) {
+  const curPosKey = curPos.join(",");
+  if (curPosKey in rooms) {
+    if (!rooms[curPosKey].split().includes(direction) && doors) {
+      this.character.position = nexPos;
+      this.actuator;
     }
   }
-
-  this.character.position = nexPos;
-  this.actuator;
 };
 GameManager.prototype.openDoor = function (door) {
   console.log(door);

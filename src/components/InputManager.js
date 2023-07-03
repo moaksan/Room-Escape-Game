@@ -30,6 +30,7 @@ InputManager.prototype.listen = function () {
     ArrowRight: "동",
   };
 
+  /**명령어 해석 */
   const commandInterpret = function (command) {
     const move = /^([동서남북]|[동서남북] 가|[동서남북]쪽으로 가)$/;
     const openDoor = /^((나무문|유리문|잠긴문) (열기|열어|열))$/;

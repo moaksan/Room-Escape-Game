@@ -45,7 +45,7 @@ body {
   width: 100%;
   height: 100%;
   background-color: white;
-  z-index: 4;
+  z-index: 2;
 }
 .app .game-container .map-container-container .map-container .cell .room-wall {
   position: absolute;
@@ -53,45 +53,56 @@ body {
   left: 0;
   width: 100%;
   height: 100%;
-  outline: 5px solid black;
-  z-index: 3;
+  z-index: 2;
+}
+.app .game-container .map-container-container .map-container .cell .room-wall.동 {
+  border-right: 5px solid black;
+}
+.app .game-container .map-container-container .map-container .cell .room-wall.서 {
+  border-left: 5px solid black;
+}
+.app .game-container .map-container-container .map-container .cell .room-wall.남 {
+  border-bottom: 5px solid black;
+}
+.app .game-container .map-container-container .map-container .cell .room-wall.북 {
+  border-top: 5px solid black;
 }
 .app .game-container .map-container-container .map-container .cell .door {
   position: absolute;
-  z-index: 5;
+  z-index: 3;
 }
-.app .game-container .map-container-container .map-container .cell .door[class*=-나무] {
-  background-color: brown;
-}
-.app .game-container .map-container-container .map-container .cell .door[class*=-유리] {
-  background-color: skyblue;
-}
-.app .game-container .map-container-container .map-container .cell .door[class*=-잠긴] {
-  background-color: gray;
-}
-.app .game-container .map-container-container .map-container .cell .door[class*=-동-] {
+.app .game-container .map-container-container .map-container .cell .door.동 {
   top: 0px;
   left: 0px;
   width: 70px;
   height: 5px;
 }
-.app .game-container .map-container-container .map-container .cell .door[class*=-서-] {
+.app .game-container .map-container-container .map-container .cell .door.서 {
   top: 0px;
   left: -70px;
   width: 70px;
   height: 5px;
 }
-.app .game-container .map-container-container .map-container .cell .door[class*=-남-] {
+.app .game-container .map-container-container .map-container .cell .door.남 {
   top: 0px;
-  left: -5px;
+  left: 0px;
   width: 5px;
   height: 70px;
 }
-.app .game-container .map-container-container .map-container .cell .door[class*=-북-] {
+.app .game-container .map-container-container .map-container .cell .door.북 {
   top: -70px;
   left: 0px;
   width: 5px;
   height: 70px;
+}
+.app .game-container .map-container-container .map-container .cell .door.유리문 {
+  background-color: skyblue;
+}
+.app .game-container .map-container-container .map-container .cell .door.나무문 {
+  background-color: brown;
+}
+.app .game-container .map-container-container .map-container .cell .door.잠긴문 {
+  background-color: gray;
 }
 .app .game-container .map-container-container .map-container .cell .item {
   position: absolute;
@@ -100,14 +111,14 @@ body {
   top: 20px;
   left: 20px;
   background-color: green;
-  z-index: 5;
+  z-index: 3;
 }
 .app .game-container .map-container-container .map-container .cell .character {
   position: absolute;
   width: 20px;
   height: 20px;
   background-color: red;
-  z-index: 6;
+  z-index: 4;
 }
 .app .game-container .ic-container {
   height: 100px;
