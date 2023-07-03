@@ -6,8 +6,9 @@ const map = {
   ],
   doors: {
     유리: [[3,3,'남']], // [x,y,direction]
-    나무: [[2,5,'서'], [5,5,'남']], // (x,y) room의 좌상귀가 문의 경첩
-    잠긴: [[1,7,'남']] // direction 의미 : 1=up, 2=left, 3=down, 4=right
+    나무: [[2,5,'동'], [5,5,'남']], // (x,y) room의 좌상귀가 문의 경첩
+    잠긴: [[1,8,'남']], // direction 의미 : 1=up, 2=left, 3=down, 4=right
+    깨진유리: []
   },
   items: {
     망치: [[3,1]],
@@ -25,9 +26,61 @@ export function GameManager(InputManager, HTMLActuator) {
   this.character = character;
   this.inputManager = new InputManager();
   this.actuator = new HTMLActuator();
+  this.utils = new Utils();
 
   this.setUp();
 }
+
+export function Utils() {}
+Utils.prototype.canMove = function (curPos, nexPos, direction, mapData) {
+  const rooms = mapData.rooms;
+  const doors = mapData.doors;
+  if (rooms.includes(curPos) && rooms.includes(nexPos)) {    
+    doors.forEach(type => {
+      if(type=='깨진유리') return
+      doors[type].forEach(el=>{
+        const [x,y,d]= el
+        const tmp=[]
+        if(d=="동"){
+          tmp=[x,y,x-1,y]
+        }else if(d=="서"){
+          tmp=[x,y-1,x-1,y-1]
+        }else if(d=="남"){
+          tmp=[x,y,x,y-1]
+        }else if(d=="북"){
+          tmp=[x-1,y,x-1,y-1]
+        }
+        
+        if([...curPos, ...nexPos]==tmp || [...nexPos, ...curPos]==tmp){
+          return false
+        }
+      })
+    });
+    return true
+  } else if((!rooms.includes(curPos) && rooms.includes(nexPos)) || (rooms.includes(curPos) && !rooms.includes(nexPos))){
+    doors[type].forEach(el=>{
+      const [x,y,d]= el
+      const tmp=[]
+      if(d=="동"){
+        tmp=[x,y,x-1,y]
+      }else if(d=="서"){
+        tmp=[x,y-1,x-1,y-1]
+      }else if(d=="남"){
+        tmp=[x,y,x,y-1]
+      }else if(d=="북"){
+        tmp=[x-1,y,x-1,y-1]
+      }
+      
+      if([...curPos, ...nexPos]==tmp || [...nexPos, ...curPos]==tmp){
+        return false
+      }
+    })
+    return false
+  } else if (!rooms.includes(curPos) && !rooms.includes(nexPos)) {
+    return true;
+  }
+  return false;
+};
 
 GameManager.prototype.setUp = function () {
   this.actuator.updateMap(this.map, this.character);
@@ -47,8 +100,6 @@ GameManager.prototype.setUp = function () {
 GameManager.prototype.move = function (direction) {
   const curPos = this.character.position;
   let nexPos = [-1, -1];
-  const rooms = this.map.rooms;
-  const doors = this.map.doors;
 
   if (direction === "동") {
     nexPos = [curPos[0], curPos[1] + 1];
@@ -62,8 +113,11 @@ GameManager.prototype.move = function (direction) {
     console.log("direction error");
   }
 
-  if (nexPos !== [-1, -1] || (curPos in rooms && nexPos in rooms && doors)) {
+  if (nexPos !== [-1, -1]) {
+    if (this.utils.canMove(curPos, nexPos, direction, this.map)) {
+    }
   }
+
   this.character.position = nexPos;
   this.actuator;
 };

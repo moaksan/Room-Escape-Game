@@ -54,12 +54,40 @@ body {
           }
           .door {
             position: absolute;
+            z-index: 5;
+          }
+          .door[class*="-나무"] {
+            background-color: brown;
+          }
+          .door[class*="-유리"] {
+            background-color: skyblue;
+          }
+          .door[class*="-잠긴"] {
+            background-color: gray;
+          }
+          .door[class*="-동-"] {
+            top: 0px;
+            left: 0px;
+            width: 70px;
+            height: 5px;
+          }
+          .door[class*="-서-"] {
+            top: 0px;
+            left: -70px;
+            width: 70px;
+            height: 5px;
+          }
+          .door[class*="-남-"] {
             top: 0px;
             left: -5px;
             width: 5px;
             height: 70px;
-            background-color: blue;
-            z-index: 5;
+          }
+          .door[class*="-북-"] {
+            top: -70px;
+            left: 0px;
+            width: 5px;
+            height: 70px;
           }
           .item {
             position: absolute;
