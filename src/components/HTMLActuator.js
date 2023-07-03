@@ -43,12 +43,14 @@ HTMLActuator.prototype.updateRoom = function (mapData) {
       cell.getElementsByClassName("room-wall")[0]?.remove();
     }
   }
-  for (let [x, y] of roomData) {
+  for (let pos in roomData) {
+    const walls = roomData[pos];
+    const [x, y] = pos.split(",");
     const cell = this.mapContainer.getElementsByClassName(`cell _${x}-${y}`)[0];
     const element = document.createElement("div");
     element.className = `room _${x}-${y}`;
     const element2 = document.createElement("div");
-    element2.className = `room-wall _${x}-${y}`;
+    element2.className = `room-wall _${x}-${y} ${walls}`;
     cell.appendChild(element);
     cell.appendChild(element2);
   }
@@ -65,15 +67,13 @@ HTMLActuator.prototype.updateDoor = function (mapData) {
       cell.getElementsByClassName("door")[0]?.remove();
     }
   }
-  for (let type in doorData) {
-    for (let [x, y, direction] of doorData[type]) {
-      const element = document.createElement("div");
-      element.className = `door ${x}-${y}-${direction}-${type}`;
-      const cell = this.mapContainer.getElementsByClassName(
-        `cell _${x}-${y}`
-      )[0];
-      cell.appendChild(element);
-    }
+  for (let pos in doorData) {
+    const { type, direction } = doorData[pos];
+    const [x, y] = pos.split(",");
+    const element = document.createElement("div");
+    element.className = `door _${x}-${y} ${direction} ${type}`;
+    const cell = this.mapContainer.getElementsByClassName(`cell _${x}-${y}`)[0];
+    cell.appendChild(element);
   }
 };
 
@@ -88,10 +88,12 @@ HTMLActuator.prototype.updateItem = function (mapData) {
       cell.getElementsByClassName("item")[0]?.remove();
     }
   }
-  for (let type in itemData) {
-    for (let [x, y] of itemData[type]) {
+  for (let pos in itemData) {
+    const itemList = itemData[pos];
+    const [x, y] = pos.split(",");
+    for (const type in itemList) {
       const element = document.createElement("div");
-      element.className = `item ${x}-${y}-${type}`;
+      element.className = `item _${x}-${y} ${type}`;
       const cell = this.mapContainer.getElementsByClassName(
         `cell _${x}-${y}`
       )[0];
@@ -113,7 +115,7 @@ HTMLActuator.prototype.updateCharacter = function (characterData, mapData) {
     }
   }
   const element = document.createElement("div");
-  element.className = `character ${position[0]}-${[position[1]]}`;
+  element.className = `character _${position[0]}-${[position[1]]}`;
   const cell = this.mapContainer.getElementsByClassName(
     `cell _${position[0]}-${position[1]}`
   )[0];
